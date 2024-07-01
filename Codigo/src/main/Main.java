@@ -1,14 +1,15 @@
 package main;
 
+import java.nio.IntBuffer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static List<Sala> salas = new ArrayList<>();
-    private static List<Usuario> usuarios = new ArrayList<>();
-    private static List<Reserva> reservas = new ArrayList<>();
+    public static List<Sala> salas = new ArrayList<>();
+    public static List<Usuario> usuarios = new ArrayList<>();
+    public static List<Reserva> reservas = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -63,13 +64,31 @@ public class Main {
                     mostrarSalas();
                     break;
                 case 2:
-                    agregarSala();
+
+                    System.out.println("\n--- Agregar Nueva Sala ---");
+                    System.out.print("Ingrese código de la sala: ");
+                    String codigo = scanner.nextLine();
+                    System.out.print("Ingrese nombre de la sala: ");
+                    String nombre = scanner.nextLine();
+                    System.out.print("Ingrese ubicación de la sala: ");
+                    String ubicacion = scanner.nextLine();
+                    agregarSala(codigo,nombre,ubicacion);
                     break;
                 case 3:
-                    actualizarSala();
+                    System.out.println("\n--- Actualizar Sala ---");
+                    System.out.print("Ingrese código de la sala a actualizar: ");
+                    String new_codigo = scanner.nextLine();
+                    System.out.print("Ingrese nuevo nombre de la sala: ");
+                    String new_Nombre = scanner.nextLine();
+                    System.out.print("Ingrese nueva ubicación de la sala: ");
+                    String new_Ubicacion = scanner.nextLine();
+                    actualizarSala(new_codigo,new_Nombre,new_Ubicacion);
                     break;
                 case 4:
-                    eliminarSala();
+                    System.out.println("\n--- Eliminar Sala ---");
+                    System.out.print("Ingrese código de la sala a eliminar: ");
+                    String codigo_remove = scanner.nextLine();
+                    eliminarSala(codigo_remove);
                     break;
                 case 5:
                     volver = true;
@@ -88,29 +107,17 @@ public class Main {
         }
     }
 
-    private static void agregarSala() {
-        System.out.println("\n--- Agregar Nueva Sala ---");
-        System.out.print("Ingrese código de la sala: ");
-        String codigo = scanner.nextLine();
-        System.out.print("Ingrese nombre de la sala: ");
-        String nombre = scanner.nextLine();
-        System.out.print("Ingrese ubicación de la sala: ");
-        String ubicacion = scanner.nextLine();
-        Sala nuevaSala = new Sala(codigo, nombre, ubicacion);
+    static void agregarSala(String code, String name, String location) {
+
+        Sala nuevaSala = new Sala(code, name, location);
         salas.add(nuevaSala);
         System.out.println("Sala agregada correctamente.");
     }
 
-    private static void actualizarSala() {
-        System.out.println("\n--- Actualizar Sala ---");
-        System.out.print("Ingrese código de la sala a actualizar: ");
-        String codigo = scanner.nextLine();
+    static void actualizarSala(String codigo,String nuevoNombre,String nuevaUbicacion) {
+
         Sala salaEncontrada = buscarSalaPorCodigo(codigo);
         if (salaEncontrada != null) {
-            System.out.print("Ingrese nuevo nombre de la sala: ");
-            String nuevoNombre = scanner.nextLine();
-            System.out.print("Ingrese nueva ubicación de la sala: ");
-            String nuevaUbicacion = scanner.nextLine();
             salaEncontrada.setNombre(nuevoNombre);
             salaEncontrada.setUbicacion(nuevaUbicacion);
             System.out.println("Sala actualizada correctamente.");
@@ -119,10 +126,8 @@ public class Main {
         }
     }
 
-    private static void eliminarSala() {
-        System.out.println("\n--- Eliminar Sala ---");
-        System.out.print("Ingrese código de la sala a eliminar: ");
-        String codigo = scanner.nextLine();
+    static void eliminarSala(String codigo) {
+
         Sala salaEncontrada = buscarSalaPorCodigo(codigo);
         if (salaEncontrada != null) {
             salas.remove(salaEncontrada);
@@ -158,13 +163,34 @@ public class Main {
                     mostrarUsuarios();
                     break;
                 case 2:
-                    agregarUsuario();
+                    System.out.println("\n--- Agregar Nuevo Usuario ---");
+                    System.out.print("Ingrese identificador del usuario: ");
+                    String identificador = scanner.nextLine();
+                    System.out.print("Ingrese nombre del usuario: ");
+                    String nombre = scanner.nextLine();
+                    System.out.print("Ingrese departamento del usuario: ");
+                    String departamento = scanner.nextLine();
+                    System.out.print("Ingrese descripción del usuario: ");
+                    String descripcion = scanner.nextLine();
+                    agregarUsuario(identificador,nombre,departamento,descripcion);
                     break;
                 case 3:
-                    actualizarUsuario();
+                    System.out.println("\n--- Actualizar Usuario ---");
+                    System.out.print("Ingrese identificador del usuario a actualizar: ");
+                    String id= scanner.nextLine();
+                    System.out.print("Ingrese nuevo nombre del usuario: ");
+                    String nuevoNombre = scanner.nextLine();
+                    System.out.print("Ingrese nuevo departamento del usuario: ");
+                    String nuevoDepartamento = scanner.nextLine();
+                    System.out.print("Ingrese nueva descripción del usuario: ");
+                    String nuevaDescripcion = scanner.nextLine();
+                    actualizarUsuario(id,nuevoNombre,nuevoDepartamento,nuevaDescripcion);
                     break;
                 case 4:
-                    eliminarUsuario();
+                    System.out.println("\n--- Eliminar Usuario ---");
+                    System.out.print("Ingrese identificador del usuario a eliminar: ");
+                    String id_remove = scanner.nextLine();
+                    eliminarUsuario(id_remove);
                     break;
                 case 5:
                     volver = true;
@@ -183,33 +209,16 @@ public class Main {
         }
     }
 
-    private static void agregarUsuario() {
-        System.out.println("\n--- Agregar Nuevo Usuario ---");
-        System.out.print("Ingrese identificador del usuario: ");
-        String identificador = scanner.nextLine();
-        System.out.print("Ingrese nombre del usuario: ");
-        String nombre = scanner.nextLine();
-        System.out.print("Ingrese departamento del usuario: ");
-        String departamento = scanner.nextLine();
-        System.out.print("Ingrese descripción del usuario: ");
-        String descripcion = scanner.nextLine();
+    static void agregarUsuario(String identificador, String nombre, String departamento, String descripcion) {
+
         Usuario nuevoUsuario = new Usuario(identificador, nombre, departamento, descripcion);
         usuarios.add(nuevoUsuario);
         System.out.println("Usuario agregado correctamente.");
     }
 
-    private static void actualizarUsuario() {
-        System.out.println("\n--- Actualizar Usuario ---");
-        System.out.print("Ingrese identificador del usuario a actualizar: ");
-        String identificador = scanner.nextLine();
+    static void actualizarUsuario(String identificador, String nuevoNombre, String nuevoDepartamento, String nuevaDescripcion) {
         Usuario usuarioEncontrado = buscarUsuarioPorIdentificador(identificador);
         if (usuarioEncontrado != null) {
-            System.out.print("Ingrese nuevo nombre del usuario: ");
-            String nuevoNombre = scanner.nextLine();
-            System.out.print("Ingrese nuevo departamento del usuario: ");
-            String nuevoDepartamento = scanner.nextLine();
-            System.out.print("Ingrese nueva descripción del usuario: ");
-            String nuevaDescripcion = scanner.nextLine();
             usuarioEncontrado.setNombre(nuevoNombre);
             usuarioEncontrado.setDepartamento(nuevoDepartamento);
             usuarioEncontrado.setDescripcion(nuevaDescripcion);
@@ -219,10 +228,8 @@ public class Main {
         }
     }
 
-    private static void eliminarUsuario() {
-        System.out.println("\n--- Eliminar Usuario ---");
-        System.out.print("Ingrese identificador del usuario a eliminar: ");
-        String identificador = scanner.nextLine();
+    static void eliminarUsuario(String identificador) {
+
         Usuario usuarioEncontrado = buscarUsuarioPorIdentificador(identificador);
         if (usuarioEncontrado != null) {
             usuarios.remove(usuarioEncontrado);
@@ -258,10 +265,30 @@ public class Main {
                     mostrarReservas();
                     break;
                 case 2:
-                    crearReserva();
+                    System.out.println("\n--- Crear Nueva Reserva ---");
+                    System.out.print("Ingrese código de la sala a reservar: ");
+                    String codigoSala = scanner.nextLine();
+                    System.out.print("Ingrese identificador del usuario que reserva: ");
+                    String identificadorUsuario = scanner.nextLine();
+                    System.out.print("Ingrese fecha de la reserva (YYYY-MM-DD): ");
+                    String fechaString = scanner.nextLine();
+
+                    System.out.print("Ingrese detalle de la reserva: ");
+                    String detalleReserva = scanner.nextLine();
+                    crearReserva(codigoSala,identificadorUsuario,fechaString,detalleReserva);
                     break;
                 case 3:
-                    actualizarReserva();
+                    System.out.println("\n--- Actualizar Reserva ---");
+                    System.out.print("Ingrese código de la sala de la reserva a actualizar: ");
+                    String codeSala = scanner.nextLine();
+                    System.out.print("Ingrese identificador del usuario de la reserva a actualizar: ");
+                    String idUsuario = scanner.nextLine();
+                    System.out.print("Ingrese nueva fecha de la reserva (YYYY-MM-DD): ");
+                    String new_date = scanner.nextLine();
+
+                    System.out.print("Ingrese nuevo detalle de la reserva: ");
+                    String nuevoDetalle = scanner.nextLine();
+                    actualizarReserva(codeSala,idUsuario,new_date,nuevoDetalle);
                     break;
                 case 4:
                     eliminarReserva();
@@ -283,10 +310,8 @@ public class Main {
         }
     }
 
-    private static void crearReserva() {
-        System.out.println("\n--- Crear Nueva Reserva ---");
-        System.out.print("Ingrese código de la sala a reservar: ");
-        String codigoSala = scanner.nextLine();
+    static void crearReserva(String codigoSala, String identificadorUsuario, String fecha, String detalleReserva) {
+
         Sala salaReserva = buscarSalaPorCodigo(codigoSala);
         if (salaReserva == null) {
             System.out.println("No se encontró ninguna sala con ese código.");
@@ -296,34 +321,27 @@ public class Main {
             System.out.println("La sala ya está reservada.");
             return;
         }
-        System.out.print("Ingrese identificador del usuario que reserva: ");
-        String identificadorUsuario = scanner.nextLine();
+
         Usuario usuarioReserva = buscarUsuarioPorIdentificador(identificadorUsuario);
         if (usuarioReserva == null) {
             System.out.println("No se encontró ningún usuario con ese identificador.");
             return;
         }
-        System.out.print("Ingrese fecha de la reserva (YYYY-MM-DD): ");
-        String fechaString = scanner.nextLine();
-        LocalDate fecha;
+        LocalDate Fecha;
         try {
-            fecha = LocalDate.parse(fechaString);
+            Fecha = LocalDate.parse(fecha);
         } catch (Exception e) {
             System.out.println("Formato de fecha incorrecto. Use el formato YYYY-MM-DD.");
             return;
         }
-        System.out.print("Ingrese detalle de la reserva: ");
-        String detalleReserva = scanner.nextLine();
-        Reserva nuevaReserva = new Reserva(salaReserva, usuarioReserva, fecha, detalleReserva);
+        Reserva nuevaReserva = new Reserva(salaReserva, usuarioReserva, Fecha, detalleReserva);
         reservas.add(nuevaReserva);
         salaReserva.setReservada(true);
         System.out.println("Reserva creada correctamente.");
     }
 
-    private static void actualizarReserva() {
-        System.out.println("\n--- Actualizar Reserva ---");
-        System.out.print("Ingrese código de la sala de la reserva a actualizar: ");
-        String codigoSala = scanner.nextLine();
+    static void actualizarReserva(String codigoSala, String identificadorUsuario, String nuevaFecha, String nuevoDetalle) {
+
         Sala salaReserva = buscarSalaPorCodigo(codigoSala);
         if (salaReserva == null) {
             System.out.println("No se encontró ninguna sala con ese código.");
@@ -333,29 +351,25 @@ public class Main {
             System.out.println("La sala no está reservada actualmente.");
             return;
         }
-        System.out.print("Ingrese identificador del usuario de la reserva a actualizar: ");
-        String identificadorUsuario = scanner.nextLine();
+
         Usuario usuarioReserva = buscarUsuarioPorIdentificador(identificadorUsuario);
         if (usuarioReserva == null) {
             System.out.println("No se encontró ningún usuario con ese identificador.");
+            return;
+        }
+        LocalDate fecha;
+        try {
+            fecha = LocalDate.parse(nuevaFecha);
+        } catch (Exception e) {
+            System.out.println("Formato de fecha incorrecto. Use el formato YYYY-MM-DD.");
             return;
         }
         boolean reservaEncontrada = false;
         for (Reserva reserva : reservas) {
             if (reserva.getSala().getCodigo().equals(codigoSala) &&
                     reserva.getUsuario().getIdentificador().equals(identificadorUsuario)) {
-                System.out.print("Ingrese nueva fecha de la reserva (YYYY-MM-DD): ");
-                String fechaString = scanner.nextLine();
-                LocalDate nuevaFecha;
-                try {
-                    nuevaFecha = LocalDate.parse(fechaString);
-                } catch (Exception e) {
-                    System.out.println("Formato de fecha incorrecto. Use el formato YYYY-MM-DD.");
-                    return;
-                }
-                System.out.print("Ingrese nuevo detalle de la reserva: ");
-                String nuevoDetalle = scanner.nextLine();
-                reserva.setFecha(nuevaFecha);
+
+                reserva.setFecha(fecha);
                 reserva.setDetalleReserva(nuevoDetalle);
                 reservaEncontrada = true;
                 System.out.println("Reserva actualizada correctamente.");
@@ -398,5 +412,3 @@ public class Main {
             System.out.println("No se encontró ninguna reserva con esos datos.");
         }
     }
-}
-

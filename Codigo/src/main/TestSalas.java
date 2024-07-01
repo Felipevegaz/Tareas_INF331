@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MainTest {
+public class TestSalas {
     private static List<Sala> salas;
     private static final InputStream originalSystemIn = System.in;
     private static ByteArrayInputStream simulatedInput;
